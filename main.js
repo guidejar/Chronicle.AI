@@ -1,3 +1,35 @@
+        // --- BOM 처리 및 예외 처리 강화 파서 ---
+        const parseGameDataSafe = (rawInput) => {
+            let cleanInput = rawInput;
+
+            if (typeof rawInput === 'string') {
+                // 비표준 공백(NBSP)을 표준 공백으로 변경하고 앞뒤 공백 제거
+                cleanInput = rawInput.replace(/\u00A0/g, ' ').replace(/^\uFEFF/, '').trim();
+
+                // 마크다운 코드 블록 처리
+                if (cleanInput.startsWith('```') && cleanInput.includes('json')) {
+                    const jsonMatch = cleanInput.match(/```(?:json|html)?\s*([\s\S]*?)```/);
+                    if (jsonMatch) cleanInput = jsonMatch[1].trim();
+                }
+            }
+
+            try {
+                // 후행 쉼표 제거 후 파싱
+                const jsonString = cleanInput.replace(/,(\s*[\}\]])/g, '$1');
+                return JSON.parse(jsonString);
+            } catch (error) {
+                console.warn('기본 JSON 파싱 실패, HTML 파싱 시도:', error.message);
+                // HTML div에서 직접 추출 시도
+                const htmlMatch = cleanInput.match(/<div[^>]*id="llm-data-source"[^>]*>\s*([\s\S]*?)\s*<\/div>/);
+                if (htmlMatch) {
+                    let htmlContent = htmlMatch[1].trim();
+                    const jsonString = htmlContent.replace(/,(\s*[\}\]])/g, '$1');
+                    return JSON.parse(jsonString);
+                }
+                throw error; // 모든 시도 실패 시 에러 throw
+            }
+        };
+
         const createElement = (tag, classes = '', text = '') => {
             const element = document.createElement(tag);
             if (classes) element.className = classes;
