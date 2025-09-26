@@ -7,7 +7,7 @@
         };
 
         const getGradeColor = (grade) => {
-            const colors = { '전설': 'text-yellow-400', '상급': 'text-purple-400', '중급': 'text-blue-400', '하급': 'text-gray-400' };
+            const colors = { '전설': 'text-yellow-400', '화폐': 'text-yellow-400', '상급': 'text-purple-400', '중급': 'text-blue-400', '하급': 'text-gray-400' };
             return colors[grade] || 'text-gray-400';
         };
 
@@ -49,6 +49,7 @@
                     const profileList = createElement('ul', 'space-y-2');
                     if (options.use_level) {
                         profileList.appendChild(createProfileItem('레벨', data.level));
+                        profileList.appendChild(createProfileItem('경험치', `${data.xp.current} / ${data.xp.max} XP`));
                     }
                     profileList.appendChild(createProfileItem('클래스', data.class));
                     profileList.appendChild(createProfileItem('칭호', data.title));
@@ -84,7 +85,8 @@
                     data.forEach(item => {
                         const li = createElement('li', 'p-3 bg-black/30 rounded-md border border-gray-700');
                         const header = createElement('div', 'flex justify-between items-center');
-                        header.appendChild(createElement('span', 'font-bold', `${item[0]} (x${item[2]})`));
+                        const nameText = item[1] === '화폐' ? item[0] : `${item[0]} (x${item[2]})`;
+                        header.appendChild(createElement('span', 'font-bold', nameText));
                         header.appendChild(createElement('span', `font-semibold ${getGradeColor(item[1])}`, item[1]));
                         const desc = createElement('p', 'text-sm text-gray-400 mt-1', item[3]);
                         li.append(header, desc);
@@ -95,13 +97,25 @@
                     break;
                 case 'skills':
                     const skillTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4', '스킬');
+                    // CSV: [name, level, current_xp, max_xp, cost, description]
                     data.forEach(skill => {
                         const li = createElement('li', 'p-3 bg-black/30 rounded-md border border-gray-700');
                         const header = createElement('div', 'flex justify-between items-center');
-                        header.appendChild(createElement('span', 'font-bold', skill[0]));
-                        header.appendChild(createElement('span', 'text-blue-400', skill[1]));
-                        const desc = createElement('p', 'text-sm text-gray-400 mt-1', skill[2]);
-                        li.append(header, desc);
+                        header.appendChild(createElement('span', 'font-bold', `${skill[0]} (Lv.${skill[1]})`));
+                        header.appendChild(createElement('span', 'text-blue-400', skill[4]));
+                        
+                        const desc = createElement('p', 'text-sm text-gray-400 mt-1', skill[5]);
+                        
+                        // Skill XP Bar
+                        const xpContainer = createElement('div', 'mt-2');
+                        const xpPercentage = skill[3] > 0 ? (skill[2] / skill[3]) * 100 : 0;
+                        const xpBarBg = createElement('div', 'w-full bg-gray-700 rounded-full h-1.5');
+                        const xpBarFg = createElement('div', `h-1.5 rounded-full bg-purple-500`);
+                        xpBarFg.style.width = `${xpPercentage}%`;
+                        xpBarBg.appendChild(xpBarFg);
+                        xpContainer.appendChild(xpBarBg);
+
+                        li.append(header, desc, xpContainer);
                         list.appendChild(li);
                     });
                     panel.append(skillTitle, list);
@@ -167,8 +181,11 @@
             header.appendChild(detailIcon);
 
             const bars = createElement('div', 'space-y-2');
-            bars.appendChild(renderStatBar('HP', stats.hp, stats.maxHp, 'bg-red-500'));
-            bars.appendChild(renderStatBar('MP', stats.mp, stats.maxMp, 'bg-blue-500'));
+            if (stats.resources) {
+                stats.resources.forEach(resource => {
+                    bars.appendChild(renderStatBar(resource.name, resource.current, resource.max, resource.color));
+                });
+            }
             
             card.append(header, bars);
             return card;
