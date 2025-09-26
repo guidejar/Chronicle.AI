@@ -17,7 +17,7 @@
         }
 
         // --- 오버레이 패널 관리 ---
-        const showOverlayPanel = (type, data) => {
+        const showOverlayPanel = (type, data, options = {}) => {
             hideOverlayPanel(); 
 
             const contentContainer = document.getElementById('content-container');
@@ -47,6 +47,9 @@
                     // 프로필 섹션
                     const profileTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4', '프로필');
                     const profileList = createElement('ul', 'space-y-2');
+                    if (options.use_level) {
+                        profileList.appendChild(createProfileItem('레벨', data.level));
+                    }
                     profileList.appendChild(createProfileItem('클래스', data.class));
                     profileList.appendChild(createProfileItem('칭호', data.title));
                     profileList.appendChild(createProfileItem('명성', data.reputation));
@@ -62,15 +65,17 @@
                     });
                     panel.append(attrTitle, list);
 
-                    // 장비 섹션
-                    const equipTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4 mt-6', '장비');
-                    const equipList = createElement('ul', 'space-y-2');
-                     Object.entries(data.equipment).forEach(([key, value]) => {
-                        const item = createElement('li', 'flex justify-between items-center text-sm');
-                        item.innerHTML = `<span class="capitalize font-semibold text-gray-400">${key}</span> <span class="font-mono text-gray-200">${value || '없음'}</span>`;
-                        equipList.appendChild(item);
-                    });
-                    panel.append(equipTitle, equipList);
+                    // 장비 섹션 (옵션에 따라 렌더링)
+                    if (options.use_equipment) {
+                        const equipTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4 mt-6', '장비');
+                        const equipList = createElement('ul', 'space-y-2');
+                         Object.entries(data.equipment).forEach(([key, value]) => {
+                            const item = createElement('li', 'flex justify-between items-center text-sm');
+                            item.innerHTML = `<span class="capitalize font-semibold text-gray-400">${key}</span> <span class="font-mono text-gray-200">${value || '없음'}</span>`;
+                            equipList.appendChild(item);
+                        });
+                        panel.append(equipTitle, equipList);
+                    }
 
                     contentRendered = true;
                     break;
@@ -142,14 +147,20 @@
             return container;
         };
 
-        const renderCharacterUI = (stats) => {
+        const renderCharacterUI = (data) => {
+            const { character_stats: stats, internal_data: { game_options: options } } = data;
             const card = createElement('div', 'bg-black/30 p-4 rounded-lg border border-gray-700');
             
             const header = createElement('div', 'text-center mb-3 relative p-2 -m-2 rounded-lg cursor-pointer hover:bg-white/5 transition-colors');
             header.setAttribute('aria-label', '상세 정보 보기');
-            header.addEventListener('click', () => showOverlayPanel('character', stats));
+            header.addEventListener('click', () => showOverlayPanel('character', stats, options));
 
-            header.appendChild(createElement('h2', 'text-xl font-bold', stats.name));
+            const nameContainer = createElement('div', 'flex justify-center items-baseline gap-2');
+            nameContainer.appendChild(createElement('h2', 'text-xl font-bold', stats.name));
+            if (options.use_level) {
+                nameContainer.appendChild(createElement('span', 'text-sm font-mono text-gray-400', `Lv. ${stats.level}`));
+            }
+            header.appendChild(nameContainer);
 
             const detailIcon = createElement('div', 'absolute top-1 right-1 text-gray-400');
             detailIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>`;
@@ -160,7 +171,6 @@
             bars.appendChild(renderStatBar('MP', stats.mp, stats.maxMp, 'bg-blue-500'));
             
             card.append(header, bars);
-
             return card;
         };
 
@@ -204,18 +214,18 @@
             if (!hudContainer) return;
             hudContainer.innerHTML = '';
             
-            hudContainer.appendChild(renderCharacterUI(data.character_stats));
+            hudContainer.appendChild(renderCharacterUI(data));
             hudContainer.appendChild(renderActionButtons(data.inventory, data.skills));
             hudContainer.appendChild(renderInfoPanel(data.information_panel));
         };
 
         const renderContent = (data) => {
             const contentContainer = document.getElementById('content-container');
-            if (!contentContainer || !data.story) return;
+            if (!contentContainer || !data.image) return;
             contentContainer.innerHTML = '';
 
             const image = createElement('img', 'absolute inset-0 w-full h-full object-cover');
-            image.src = data.story.image;
+            image.src = data.image;
             image.alt = "게임 장면";
             
             contentContainer.appendChild(image);
