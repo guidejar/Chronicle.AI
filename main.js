@@ -1,3 +1,26 @@
+        // --- BOM 처리 파서 ---
+        const parseGameDataSafe = (rawInput) => {
+            let cleanInput = rawInput;
+
+            if (typeof rawInput === 'string') {
+                cleanInput = rawInput.replace(/^\uFEFF/, '').trim();
+
+                if (cleanInput.startsWith('```') && cleanInput.includes('json')) {
+                    const jsonMatch = cleanInput.match(/```(?:json|html)?\s*([\s\S]*?)```/);
+                    if (jsonMatch) cleanInput = jsonMatch[1].trim();
+                }
+            }
+
+            try {
+                return JSON.parse(cleanInput);
+            } catch (error) {
+                console.warn('기본 JSON 파싱 실패, HTML 파싱 시도:', error.message);
+                const htmlMatch = cleanInput.match(/<div[^>]*id="llm-data-source"[^>]*>\s*([\s\S]*?)\s*<\/div>/);
+                if (htmlMatch) return JSON.parse(htmlMatch[1].trim());
+                throw error;
+            }
+        };
+
         // --- 유틸리티 함수 ---
         const createElement = (tag, classes = '', text = '') => {
             const element = document.createElement(tag);
@@ -267,13 +290,13 @@
         document.addEventListener('DOMContentLoaded', () => {
             try {
                 const dataSource = document.getElementById('llm-data-source');
-                const gameData = JSON.parse(dataSource.textContent);
-                
+                const gameData = parseGameDataSafe(dataSource.textContent);
+
                 initializeLayout();
                 renderHUD(gameData);
                 renderContent(gameData);
             } catch (error) {
                 console.error("오류 발생:", error);
-                document.body.innerHTML = `<div class="text-red-400 p-8">데이터 처리 중 오류가 발생했습니다.</div>`;
+                document.body.innerHTML = `<div class="text-red-400 p-8">데이터 처리 중 오류가 발생했습니다: ${error.message}</div>`;
             }
         });
