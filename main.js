@@ -1,5 +1,4 @@
-
-        // --- 유틸리티 함수 ---
+         // --- 유틸리티 함수 ---
         const createElement = (tag, classes = '', text = '') => {
             const element = document.createElement(tag);
             if (classes) element.className = classes;
@@ -33,25 +32,33 @@
             overlay.id = 'active-overlay';
 
             const panel = createElement('div', 'w-full max-w-2xl bg-gray-800 border border-gray-600 rounded-lg shadow-xl p-6');
-            const list = createElement('ul', 'space-y-3 max-h-[80vh] overflow-y-auto');
+            
+            // --- 공통 패널 헤더 (닫기 버튼 포함) ---
+            const createPanelHeader = (title) => {
+                const panelHeader = createElement('div', 'flex items-center justify-between border-b border-gray-600 pb-3 mb-4');
+                panelHeader.appendChild(createElement('h2', 'text-2xl font-bold text-cyan-300', title));
+                
+                const closeBtn = createElement('button', 'text-gray-400 hover:text-white transition-colors');
+                closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`;
+                closeBtn.setAttribute('aria-label', 'Close panel');
+                closeBtn.addEventListener('click', hideOverlayPanel);
+                panelHeader.appendChild(closeBtn);
+                
+                return panelHeader;
+            };
 
             let contentRendered = false;
 
             switch (type) {
                 case 'character':
-                    panel.innerHTML = ''; // 기존 내용 초기화
-
-                    // 패널 헤더
-                    const panelHeader = createElement('div', 'flex items-center justify-between border-b border-gray-600 pb-3 mb-4');
-                    panelHeader.appendChild(createElement('h2', 'text-2xl font-bold text-cyan-300', '캐릭터 정보'));
-                    panel.appendChild(panelHeader);
+                    panel.innerHTML = ''; 
+                    panel.appendChild(createPanelHeader('캐릭터 정보'));
 
                     const mainGrid = createElement('div', 'grid grid-cols-1 md:grid-cols-5 gap-6 pt-2');
                     const leftCol = createElement('div', 'md:col-span-3 space-y-6');
                     const rightCol = createElement('div', 'md:col-span-2 space-y-6');
                     
                     // --- 좌측 컬럼 ---
-                    // 1. 프로필 섹션
                     const profileSection = createElement('div');
                     profileSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '프로필'));
                     const profileList = createElement('ul', 'space-y-1.5 text-sm');
@@ -73,7 +80,6 @@
                     profileSection.appendChild(profileList);
                     leftCol.appendChild(profileSection);
 
-                    // 2. 능력치 섹션
                     const attrSection = createElement('div');
                     attrSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '능력치'));
                     const attrGrid = createElement('div', 'grid grid-cols-3 gap-x-4 gap-y-2');
@@ -87,7 +93,6 @@
                     leftCol.appendChild(attrSection);
                     
                     // --- 우측 컬럼 ---
-                    // 3. 장비 섹션
                     if (options.use_equipment) {
                         const equipSection = createElement('div');
                         equipSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '장비'));
@@ -108,22 +113,27 @@
                     contentRendered = true;
                     break;
                 case 'inventory':
-                    const invTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4', '소지품');
+                    panel.appendChild(createPanelHeader('소지품'));
+                    const invList = createElement('ul', 'space-y-3 max-h-[80vh] overflow-y-auto');
                     data.forEach(item => {
                         const li = createElement('li', 'p-3 bg-black/30 rounded-md border border-gray-700');
                         const header = createElement('div', 'flex justify-between items-center');
-                        const nameText = `${item[0]} (x${item[2]})`;
+                        // 화폐 타입일 경우와 아닐 경우를 분기하여 수량 표시를 더 안정적으로 처리
+                        const nameText = (item[1] === '화폐') 
+                            ? `${item[0]} (x${item[2]})`
+                            : `${item[0]} (x${item[2] || 1})`;
                         header.appendChild(createElement('span', 'font-bold', nameText));
                         header.appendChild(createElement('span', `font-semibold ${getGradeColor(item[1])}`, item[1]));
                         const desc = createElement('p', 'text-sm text-gray-400 mt-1', item[3]);
                         li.append(header, desc);
-                        list.appendChild(li);
+                        invList.appendChild(li);
                     });
-                    panel.append(invTitle, list);
+                    panel.appendChild(invList);
                     contentRendered = true;
                     break;
                 case 'skills':
-                    const skillTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4', '스킬');
+                    panel.appendChild(createPanelHeader('스킬'));
+                    const skillList = createElement('ul', 'space-y-3 max-h-[80vh] overflow-y-auto');
                     // CSV: [name, level, current_xp, max_xp, cost, description]
                     data.forEach(skill => {
                         const li = createElement('li', 'p-3 bg-black/30 rounded-md border border-gray-700');
@@ -133,7 +143,6 @@
                         
                         const desc = createElement('p', 'text-sm text-gray-400 mt-1', skill[5]);
                         
-                        // Skill XP Bar
                         const xpContainer = createElement('div', 'mt-2');
                         const xpPercentage = skill[3] > 0 ? (skill[2] / skill[3]) * 100 : 0;
                         const xpBarBg = createElement('div', 'w-full bg-gray-700 rounded-full h-1.5');
@@ -143,9 +152,9 @@
                         xpContainer.appendChild(xpBarBg);
 
                         li.append(header, desc, xpContainer);
-                        list.appendChild(li);
+                        skillList.appendChild(li);
                     });
-                    panel.append(skillTitle, list);
+                    panel.appendChild(skillList);
                     contentRendered = true;
                     break;
             }
@@ -303,4 +312,4 @@
                 console.error("오류 발생:", error);
                 document.body.innerHTML = `<div class="text-red-400 p-8">데이터 처리 중 오류가 발생했습니다.</div>`;
             }
-        });=
+        });
