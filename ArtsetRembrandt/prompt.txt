@@ -1,0 +1,227 @@
+[
+  {
+    "filename": "01_throne_room_of_shadows.png",
+    "prompt": "A grand, empty throne room, illuminated by a single beam of light from a high window hitting the ornate throne. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, using his signature chiaroscuro lighting to create deep shadows and intense highlights. The atmosphere is heavy with solitude and authority. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "왕좌의 방. 높은 창에서 들어오는 단 한 줄기 빛이 옥좌를 비추는 장면. 렘브란트 스타일의 깊은 어둠과 빛의 대비를 통해 권위와 고독을 표현합니다."
+  },
+  {
+    "filename": "02_misty_castle_gate.png",
+    "prompt": "The massive, imposing gates of a medieval castle shrouded in thick morning fog. A lone guard with a torch stands watch, the flame barely piercing the gloom. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, using his signature chiaroscuro lighting to create deep shadows and intense highlights. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "안개 낀 성문. 짙은 안개에 싸인 거대한 성문을 횃불을 든 경비병이 지키고 있습니다. 불빛이 어둠을 가르며 미스터리한 분위기를 자아냅니다."
+  },
+  {
+    "filename": "03_tavern_of_whispers.png",
+    "prompt": "The interior of a dimly lit, rustic medieval tavern. Light from a crackling fireplace illuminates the faces of weary travelers huddled around a wooden table. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, using his signature chiaroscuro lighting to create deep shadows and intense highlights. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "선술집 내부. 타오르는 벽난로의 불빛이 지친 여행자들의 얼굴을 비추는 어두운 선술집. 그림자가 인물들의 사연을 감추는 듯한 느낌을 줍니다."
+  },
+  {
+    "filename": "04_clash_of_steel.png",
+    "prompt": "A dramatic close-up of two steel swords clashing, sparks flying in the darkness. The scene is illuminated only by the violent reflection on the blades. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, using his signature chiaroscuro lighting to create deep shadows and intense highlights. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "칼이 교차하는 순간. 어둠 속에서 두 검이 부딪히며 튀는 불꽃을 포착합니다. 렘브란트 특유의 빛 표현으로 금속의 질감과 긴장감을 극대화합니다."
+  },
+  {
+    "filename": "05_council_by_the_fire.png",
+    "prompt": "A secret council meeting around a campfire at night. The flickering flames cast long, dancing shadows on the grim faces of warriors and strategists. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, using his signature chiaroscuro lighting to create deep shadows and intense highlights. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "모닥불 주변 회의. 심각한 표정의 인물들이 모닥불 주위에 모여 비밀 회의를 하는 장면. 흔들리는 불빛이 긴장감을 고조시킵니다."
+  },
+  {
+    "filename": "06_aftermath_of_battle.png",
+    "prompt": "A desolate battlefield after the fighting has ceased, under a stormy, bruised sky. A lone survivor kneels beside a fallen banner. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, capturing a somber and melancholic mood with deep shadows. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "전투 후 전장. 폭풍우가 몰아치는 하늘 아래, 쓰러진 깃발 옆에 한 생존자가 홀로 무릎 꿇고 있는 비극적인 풍경입니다."
+  },
+  {
+    "filename": "07_hooded_wanderer_from_behind.png",
+    "prompt": "The back view of a lone wanderer in a heavy, tattered hood, standing at a crossroads in a dim forest. Most of the figure is lost in shadow. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, using his signature chiaroscuro lighting to create deep shadows and intense highlights. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "후드 쓴 방랑자의 뒷모습. 어두운 숲 속 갈림길에 서 있는 인물. 정체를 알 수 없는 미스터리한 분위기를 강조합니다."
+  },
+  {
+    "filename": "08_robed_sage_in_library.png",
+    "prompt": "An elderly, robed sage in a candlelit library, his face etched with wisdom and weariness as he pores over an ancient tome. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, focusing on the light catching the texture of the paper and the wrinkles on his face. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "로브 입은 현자. 촛불 아래에서 고서를 읽고 있는 늙은 현자의 초상. 지혜와 세월의 깊이를 빛과 그림자로 표현합니다."
+  },
+  {
+    "filename": "09_praying_priest.png",
+    "prompt": "A priest kneeling in prayer inside a dark, stone chapel. A single shaft of divine light penetrates the gloom, illuminating him from above. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, filled with spiritual intensity. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "기도하는 사제. 어두운 예배당, 천상에서 내려오는 듯한 빛줄기 속에서 기도하는 사제의 경건한 모습입니다."
+  },
+  {
+    "filename": "10_the_broken_blade.png",
+    "prompt": "A single broken sword lies half-buried in the mud of a battlefield at dusk. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, with a single ray of fading light catching the fractured edge of the steel. The atmosphere is somber. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "부서진 검. 전투 후, 진흙 위에 놓인 부서진 검 한 자루. 패배와 상실, 그리고 끝난 전쟁의 허무함을 상징적으로 표현합니다."
+  },
+  {
+    "filename": "11_sand_through_fingers.png",
+    "prompt": "A close-up of a weathered hand, allowing fine sand to slip through its fingers. The scene is lit from the side, highlighting every grain and wrinkle. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, symbolizing the passage of time. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "손에서 흘러내리는 모래. 거친 손가락 사이로 흘러내리는 모래를 통해 시간의 흐름과 유한함을 은유적으로 보여줍니다."
+  },
+  {
+    "filename": "12_distorted_reflection.png",
+    "prompt": "A character staring into a dark, antique mirror, but the reflection is a distorted, shadowy version of themselves. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, creating a psychological and unsettling mood. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "거울에 비친 왜곡된 상. 낡은 거울에 비친 자신의 모습이 어둡고 뒤틀려 있습니다. 내면의 갈등이나 타락을 암시합니다."
+  },
+  {
+    "filename": "13_ruined_tower_by_moonlight.png",
+    "prompt": "A ruined tower silhouetted against a full moon and a sky full of stars. The moonlight casts long, eerie shadows on the desolate landscape. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "달빛 비치는 유적. 별이 빛나는 밤, 달빛을 받아 실루엣만 남은 폐허가 된 탑. 지나간 영광과 시간의 무상함을 보여줍니다."
+  },
+  {
+    "filename": "14_underground_dungeon.png",
+    "prompt": "The deep, oppressive darkness of an underground dungeon, with damp stone walls. A single torch on the wall provides the only light, casting flickering shadows. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "지하 감옥. 축축한 돌벽으로 이루어진 어두운 지하 감옥. 벽에 걸린 횃불 하나가 유일한 광원으로, 절망적인 분위기를 자아냅니다."
+  },
+  {
+    "filename": "15_uncharted_map_on_table.png",
+    "prompt": "An old, rolled-out map spread on a wooden captain's table, alongside a compass and a lit oil lamp. The lamp is the sole light source. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, hinting at a coming adventure. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "펼쳐진 고지도. 선장의 책상 위에 나침반, 기름 램프와 함께 펼쳐진 지도. 렘브란트 스타일의 빛이 곧 시작될 미지의 모험을 암시합니다."
+  },
+  {
+    "filename": "16_dusk_field.png",
+    "prompt": "A vast, empty field at dusk, the last light of the setting sun creating long, deep shadows from a few lonely trees. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, using his signature chiaroscuro lighting to convey a sense of profound peace and melancholy. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "황혼의 들판. 해질녘의 광활한 들판에 길게 드리워진 나무 그림자. 렘브란트의 빛과 어둠을 통해 평화로우면서도 깊은 멜랑콜리를 담아냅니다."
+  },
+  {
+    "filename": "17_bustling_market_corner.png",
+    "prompt": "A small, intensely detailed corner of a bustling medieval market at night. The warm light from a merchant's lantern illuminates exotic goods and the faces of a few haggling customers, while the rest of the market fades into deep shadow. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "번화한 시장. 밤의 시장 한구석, 상인의 등불이 상품과 흥정하는 사람들의 얼굴을 비추는 풍경. 빛이 닿는 곳에 시선을 집중시켜 생동감을 줍니다."
+  },
+  {
+    "filename": "18_harbor_at_night.png",
+    "prompt": "A medieval harbor at night, with the dark silhouettes of tall ships against a starry sky. The only light comes from a few lanterns on the docks, their reflections shimmering on the dark water. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "항구 전경. 별이 빛나는 밤, 부두의 등불만이 어두운 수면과 거대한 배들의 실루엣을 비추는 고요하고 장엄한 항구의 모습입니다."
+  },
+  {
+    "filename": "19_torchlight_procession.png",
+    "prompt": "A procession of figures holding torches, moving through a dark forest at night. The individual flames create moving pockets of light and long, dancing shadows among the ancient trees. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "횃불 행렬. 어두운 숲을 가로지르는 횃불 행렬. 흔들리는 불빛이 만들어내는 동적인 빛과 그림자로 신비롭고 긴장감 있는 분위기를 연출합니다."
+  },
+  {
+    "filename": "20_coronation_ceremony.png",
+    "prompt": "The solemn moment of a coronation. A heavy, ornate crown is being lowered onto a monarch's head. The scene is lit dramatically from above, highlighting the glitter of gold and jewels against the dark, velvet robes. The crowd is barely visible in the surrounding darkness. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "대관식 장면. 어둠 속에서 빛을 받으며 왕관을 쓰는 장엄한 순간. 렘브란트 스타일로 왕관의 무게와 행사의 신성함을 극대화합니다."
+  },
+  {
+    "filename": "21_discovering_treasure.png",
+    "prompt": "An adventurer in a dark cave, having just opened a heavy wooden chest. A brilliant, divine golden light emanates from within the chest, illuminating the adventurer's face, which is a mixture of awe and greed. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "보물상자 발견. 어두운 동굴, 막 열린 보물상자에서 뿜어져 나오는 눈부신 황금빛이 탐험가의 얼굴을 비추는 경이로운 순간입니다."
+  },
+  {
+    "filename": "22_silhouette_in_the_rain.png",
+    "prompt": "The silhouette of a lone figure standing in a torrential downpour at night on a cobblestone street. The figure is visible only by the reflection of a distant light on the wet ground. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, evoking feelings of loneliness and resolve. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "빗속의 인물 실루엣. 비 내리는 밤의 자갈길, 젖은 바닥에 비친 빛으로만 형체를 알아볼 수 있는 인물의 고독한 실루엣입니다."
+  },
+  {
+    "filename": "23_armored_knight_silhouette.png",
+    "prompt": "The powerful silhouette of a knight in full plate armor, standing against the bright opening of a massive stone archway. Only the edges of the armor catch the light, defining its formidable shape. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "갑옷 입은 기사 실루엣. 밝은 아치형 입구를 등지고 서 있어 윤곽만 드러난 중무장 기사. 빛을 받아 번뜩이는 갑옷의 가장자리가 위압감을 줍니다."
+  },
+  {
+    "filename": "24_shadowy_antagonist.png",
+    "prompt": "A menacing, dark shadow of a figure is cast upon a stone wall, the figure itself remaining unseen. The shadow's form is elongated and threatening. The only light source is a low, flickering candle. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "검은 그림자 (적대자). 벽에 길고 위협적으로 드리워진 미지의 인물 그림자. 보이지 않는 존재에 대한 공포와 긴장감을 조성합니다."
+  },
+  {
+    "filename": "25_archer_at_dawn.png",
+    "prompt": "An archer scout, half-hidden in shadows, perched on a rocky outcrop at dawn. The first rays of the sun highlight the taut string of their bow and their focused expression. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "활 든 정찰병. 새벽녘 바위틈에 숨어 주위를 경계하는 정찰병. 떠오르는 해의 첫 빛이 팽팽한 활시위와 날카로운 눈빛을 비춥니다."
+  },
+  {
+    "filename": "26_the_fork_in_the_road.png",
+    "prompt": "A dark, muddy road splitting into two paths in a dense, shadowy forest. There is no indication of where each path leads. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, symbolizing a difficult choice. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "갈림길. 짙은 숲 속에서 두 갈래로 나뉘는 어두운 길. 불확실한 미래와 선택의 무게를 상징적으로 보여주는 풍경입니다."
+  },
+  {
+    "filename": "27_glowing_orb.png",
+    "prompt": "A pair of hands carefully holding a mysterious, glowing orb in complete darkness. The orb is the only source of light, casting a soft, ethereal glow on the hands and face of the person holding it. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "빛나는 보주. 칠흑 같은 어둠 속에서 신비로운 빛을 발하는 보주를 두 손으로 소중히 들고 있는 모습. 희망 또는 마법적인 힘을 암시합니다."
+  },
+  {
+    "filename": "28_breaking_the_shackles.png",
+    "prompt": "A close-up, dramatic shot of rusted iron shackles on a person's wrists shattering apart. Sparks and fragments of metal fly into the surrounding darkness. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, capturing a powerful moment of liberation. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "족쇄가 부서지는 순간. 인물의 손목에 채워져 있던 낡은 족쇄가 부서져 흩어지는 극적인 순간. 자유와 해방을 상징합니다."
+  },
+  {
+    "filename": "29_the_withering_tree.png",
+    "prompt": "A single, ancient tree, withered and leafless, standing alone in a desolate landscape under a dark, cloudy sky. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, symbolizing despair, loss, or the end of an era. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "시들어가는 나무. 황량한 풍경 속에 홀로 서 있는 잎이 모두 떨어진 고목. 절망과 상실, 한 시대의 종말을 시각적으로 표현합니다."
+  },
+  {
+    "filename": "30_starry_night_sky.png",
+    "prompt": "A vast, brilliant night sky filled with countless stars and the faint glow of the milky way, viewed from a dark clearing. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, interpreting the cosmos with a sense of awe and divine mystery. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "별이 빛나는 밤하늘. 다른 빛이 없는 어둠 속에서 경이로울 정도로 쏟아지는 밤하늘의 별들. 렘브란트의 스타일로 우주의 신비와 숭고함을 담아냅니다."
+  },
+  {
+    "filename": "31_dark_forest_path.png",
+    "prompt": "A narrow, winding path through a dark and ancient forest. The dense canopy overhead allows only a few stray beams of moonlight to pierce the oppressive darkness, illuminating patches of the gnarled roots covering the path. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "어두운 숲길. 빽빽한 나뭇잎 사이로 간신히 스며드는 몇 줄기 달빛만이 길을 비추는 깊은 숲 속. 빛과 어둠의 극명한 대비로 불안하고 신비로운 분위기를 연출합니다."
+  },
+  {
+    "filename": "32_lakeside_reflection.png",
+    "prompt": "A quiet lakeside at night. The still, dark water perfectly mirrors the moon and a few bright stars. The shoreline is lost in deep shadow, focusing all attention on the celestial reflection. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, evoking a sense of deep calm and introspection. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "고요한 호숫가. 달과 별이 고요히 잠긴 어두운 호수의 수면. 렘브란트의 깊은 어둠을 활용하여 명상적인 분위기를 자아냅니다."
+  },
+  {
+    "filename": "33_mountain_pass_view.png",
+    "prompt": "A view from a high, treacherous mountain pass. Dramatic clouds part to allow a single, powerful beam of sunlight to illuminate the path ahead, while the surrounding peaks remain shrouded in shadow. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "산맥 전경. 험준한 산길, 어두운 구름 사이를 뚫고 한 줄기 빛이 나아갈 길을 비추는 숭고하고 극적인 풍경입니다."
+  },
+  {
+    "filename": "34_stormy_sky_above_sea.png",
+    "prompt": "A dark, churning sea under a violent, stormy sky. A flash of lightning briefly illuminates the white crests of the massive waves. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, capturing the raw power of nature. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "폭풍우 치는 하늘. 성난 파도가 몰아치는 바다 위로 번개가 내리치는 순간. 자연의 압도적인 힘과 공포를 표현합니다."
+  },
+  {
+    "filename": "35_magic_circle_ritual.png",
+    "prompt": "A sorcerer with their face obscured by a deep hood, kneeling in the center of a glowing magic circle in a dark chamber. The intricate runes on the floor are the only source of light, casting an eerie glow upwards onto the caster's hands. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "마법진 발동. 어두운 방, 빛나는 마법진의 중심에서 의식을 행하는 마법사. 룬 문자의 빛이 아래에서 위로 비추며 신비롭고 위험한 분위기를 만듭니다."
+  },
+  {
+    "filename": "36_departure_at_first_light.png",
+    "prompt": "A small group of travelers on horseback, their dark silhouettes poised on a ridge against the very first, faint light of dawn. The world is still wrapped in deep blue and purple shadows. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, capturing the quiet resolve of a new journey. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "새벽녘 출발. 동트기 직전의 미명(微明)을 배경으로 길을 떠나는 여행자들의 실루엣. 새로운 시작의 조용한 결의를 보여줍니다."
+  },
+  {
+    "filename": "37_merchant_and_his_wares.png",
+    "prompt": "A weary merchant standing by his cart, which is laden with exotic textiles and goods. A single lantern hanging from the cart illuminates the rich textures of his wares and the deep lines on his face. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "상인 (짐 가득). 짐수레 옆에 선 지친 상인. 등불 하나가 그의 고된 삶이 묻어나는 얼굴과 고향을 떠나온 상품들의 질감을 깊이 있게 비춥니다."
+  },
+  {
+    "filename": "38_crown_on_the_cushion.png",
+    "prompt": "A heavy gold crown resting on a rich velvet cushion in a dark, empty room. A single ray of light catches the facets of its jewels, making them glitter intensely against the surrounding gloom. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, symbolizing legacy and the weight of power. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "왕관의 실루엣. (구체화) 어두운 방, 벨벳 쿠션 위에 놓인 왕관. 빛을 받아 강렬하게 빛나는 보석들을 통해 권력의 무게와 유산을 상징합니다."
+  },
+  {
+    "filename": "39_flight_of_crows.png",
+    "prompt": "A flock of black crows bursting into flight from the branches of a gnarled, leafless tree at twilight. Their dark forms are silhouetted against the last dying light in the sky. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, creating an ominous and unsettling mood. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "날아가는 까마귀떼. 황혼녘, 앙상한 나뭇가지에서 까마귀 떼가 일제히 날아오르는 불길한 순간을 포착합니다."
+  },
+  {
+    "filename": "40_flower_of_hope.png",
+    "prompt": "Amidst the dark, shadowy rubble of a ruined stone building, a single, vividly colored flower grows defiantly. A single, focused beam of light illuminates this small symbol of hope. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "피어나는 꽃 (희망). 어두운 폐허의 돌무더기 사이에서 한 줄기 빛을 받으며 피어난 단 한 송이의 꽃. 절망 속에서도 꺼지지 않는 희망을 상징합니다."
+  },
+  {
+    "filename": "41_mouth_of_the_cave.png",
+    "prompt": "Looking out from the deep darkness within a cave. The cave's entrance frames a dimly lit, rugged landscape outside, creating a stark contrast between the absolute black of the interior and the world beyond. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "동굴 입구. 동굴의 칠흑 같은 어둠 속에서 밝은 바깥 세상을 바라보는 구도. 미지의 세계로의 탐험이나 은둔의 끝을 암시합니다."
+  },
+  {
+    "filename": "42_snowfield_by_moonlight.png",
+    "prompt": "A vast, untouched snowfield under a cold, full moon. The moonlight casts long, dark blue shadows from the gentle drifts and a solitary pine tree. A masterful and dramatic oil painting in the style of Rembrandt van Rijn, conveying a beautiful but stark silence. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "설원. 차가운 달빛 아래 끝없이 펼쳐진 설원. 눈 더미가 만들어내는 길고 푸른 그림자를 통해 차갑고 장엄한 정적을 표현합니다."
+  },
+  {
+    "filename": "43_oasis_under_the_stars.png",
+    "prompt": "A hidden desert oasis at night. The only light comes from the brilliant stars, which are reflected in the perfectly still water of the oasis pool. The silhouettes of palm trees frame the scene. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "사막 오아시스. 고요한 오아시스의 수면에 밤하늘의 별들이 그대로 비치는 신비로운 풍경. 절망적인 환경 속 안식처를 상징합니다."
+  },
+  {
+    "filename": "44_chase_in_the_alley.png",
+    "prompt": "A frantic chase scene down a narrow, wet cobblestone alley at night. A fleeting torchlight casts harsh, dynamic shadows, capturing the desperate, off-balance poses of the pursuer and the pursued. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, motion blur, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "추격전. 좁고 어두운 골목에서의 긴박한 추격전. 흔들리는 횃불 빛이 만들어내는 역동적인 그림자로 속도감과 절박함을 표현합니다."
+  },
+  {
+    "filename": "45_sealed_royal_tomb.png",
+    "prompt": "The interior of a long-sealed royal tomb. Dust motes dance in a single, thin shaft of light from a crack in the ceiling, illuminating the lid of a grand stone sarcophagus. The air is thick with silence and the weight of history. A masterful and dramatic oil painting in the style of Rembrandt van Rijn. Negative prompt: frame, border, letterbox, photorealistic, 3d render, anime, cartoon, text, watermark, signature, ugly, blurry, deformed, bad anatomy, extra limbs, extra fingers, poorly drawn hands, poorly drawn face, modern, futuristic, simple background, bright colors.",
+    "description": "봉인된 왕의 무덤. 천장의 갈라진 틈으로 들어오는 가느다란 빛이 거대한 석관을 비추는 고요한 무덤 내부. 잊혀진 역사와 시간의 흐름을 보여줍니다."
+  }
+]
