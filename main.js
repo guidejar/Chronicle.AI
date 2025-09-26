@@ -173,7 +173,11 @@
             const overlay = document.getElementById('active-overlay');
             if (overlay) {
                 overlay.classList.add('opacity-0', 'scale-95');
-                overlay.addEventListener('transitionend', () => overlay.remove(), { once: true });
+                setTimeout(() => {
+                    if (overlay.parentNode) {
+                        overlay.remove();
+                    }
+                }, 200); // CSS transition duration과 일치해야 함
             }
         };
 
