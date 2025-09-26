@@ -1,35 +1,3 @@
-        // --- BOM 처리 및 예외 처리 강화 파서 ---
-        const parseGameDataSafe = (rawInput) => {
-            let cleanInput = rawInput;
-
-            if (typeof rawInput === 'string') {
-                // 비표준 공백(NBSP)을 표준 공백으로 변경하고 앞뒤 공백 제거
-                cleanInput = rawInput.replace(/\u00A0/g, ' ').replace(/^\uFEFF/, '').trim();
-
-                // 마크다운 코드 블록 처리
-                if (cleanInput.startsWith('```') && cleanInput.includes('json')) {
-                    const jsonMatch = cleanInput.match(/```(?:json|html)?\s*([\s\S]*?)```/);
-                    if (jsonMatch) cleanInput = jsonMatch[1].trim();
-                }
-            }
-
-            try {
-                // 후행 쉼표 제거 후 파싱
-                const jsonString = cleanInput.replace(/,(\s*[\}\]])/g, '$1');
-                return JSON.parse(jsonString);
-            } catch (error) {
-                console.warn('기본 JSON 파싱 실패, HTML 파싱 시도:', error.message);
-                // HTML div에서 직접 추출 시도
-                const htmlMatch = cleanInput.match(/<div[^>]*id="llm-data-source"[^>]*>\s*([\s\S]*?)\s*<\/div>/);
-                if (htmlMatch) {
-                    let htmlContent = htmlMatch[1].trim();
-                    const jsonString = htmlContent.replace(/,(\s*[\}\]])/g, '$1');
-                    return JSON.parse(jsonString);
-                }
-                throw error; // 모든 시도 실패 시 에러 throw
-            }
-        };
-        // --- 유틸리티 함수 ---
         const createElement = (tag, classes = '', text = '') => {
             const element = document.createElement(tag);
             if (classes) element.className = classes;
@@ -62,72 +30,109 @@
             const overlay = createElement('div', `${overlayClasses} opacity-0 transform scale-95`);
             overlay.id = 'active-overlay';
 
-            const panel = createElement('div', 'w-full max-w-md bg-gray-800 border border-gray-600 rounded-lg shadow-xl p-6');
-            const list = createElement('ul', 'space-y-3 max-h-[80vh] overflow-y-auto');
+            const panel = createElement('div', 'w-full max-w-2xl bg-gray-800 border border-gray-600 rounded-lg shadow-xl p-6');
+            
+            // --- 공통 패널 헤더 (닫기 버튼 포함) ---
+            const createPanelHeader = (title) => {
+                const panelHeader = createElement('div', 'flex items-center justify-between border-b border-gray-600 pb-3 mb-4');
+                panelHeader.appendChild(createElement('h2', 'text-2xl font-bold text-cyan-300', title));
+                
+                const closeBtn = createElement('button', 'text-gray-400 hover:text-white transition-colors');
+                closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`;
+                closeBtn.setAttribute('aria-label', 'Close panel');
+                closeBtn.addEventListener('click', hideOverlayPanel);
+                panelHeader.appendChild(closeBtn);
+                
+                return panelHeader;
+            };
 
             let contentRendered = false;
 
             switch (type) {
                 case 'character':
+                    panel.innerHTML = ''; 
+                    panel.appendChild(createPanelHeader('캐릭터 정보'));
+
+                    const mainGrid = createElement('div', 'grid grid-cols-1 md:grid-cols-5 gap-6 pt-2');
+                    const leftCol = createElement('div', 'md:col-span-3 space-y-6');
+                    const rightCol = createElement('div', 'md:col-span-2 space-y-6');
+                    
+                    // --- 좌측 컬럼 ---
+                    const profileSection = createElement('div');
+                    profileSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '프로필'));
+                    const profileList = createElement('ul', 'space-y-1.5 text-sm');
                     const createProfileItem = (label, value) => {
-                        const item = createElement('li', 'flex justify-between items-center text-sm');
-                        item.innerHTML = `<span class="capitalize font-semibold text-gray-400">${label}</span> <span class="font-mono text-gray-200">${value}</span>`;
+                        const item = createElement('li', 'flex justify-between items-center');
+                        item.innerHTML = `<span class="font-semibold text-gray-400">${label}</span> <span class="font-mono text-gray-200">${value}</span>`;
                         return item;
                     };
 
-                    // 프로필 섹션
-                    const profileTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4', '프로필');
-                    const profileList = createElement('ul', 'space-y-2');
                     if (options.use_level) {
                         profileList.appendChild(createProfileItem('레벨', data.level));
                         profileList.appendChild(createProfileItem('경험치', `${data.xp.current} / ${data.xp.max} XP`));
                     }
+                    profileList.appendChild(createProfileItem('나이', data.age));
                     profileList.appendChild(createProfileItem('클래스', data.class));
                     profileList.appendChild(createProfileItem('칭호', data.title));
                     profileList.appendChild(createProfileItem('명성', data.reputation));
                     profileList.appendChild(createProfileItem('악명', data.notoriety));
-                    panel.append(profileTitle, profileList);
-                    
-                    // 능력치 섹션
-                    const attrTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4 mt-6', '능력치');
-                    Object.entries(data.attributes).forEach(([key, value]) => {
-                        const item = createElement('li', 'flex justify-between items-center');
-                        item.innerHTML = `<span class="capitalize font-semibold">${key}</span> <span class="text-xl font-mono text-white">${value}</span>`;
-                        list.appendChild(item);
-                    });
-                    panel.append(attrTitle, list);
+                    profileSection.appendChild(profileList);
+                    leftCol.appendChild(profileSection);
 
-                    // 장비 섹션 (옵션에 따라 렌더링)
+                    const attrSection = createElement('div');
+                    attrSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '능력치'));
+                    const attrGrid = createElement('div', 'grid grid-cols-3 gap-x-4 gap-y-2');
+                    Object.entries(data.attributes).forEach(([key, value]) => {
+                        const attrItem = createElement('div', 'bg-black/20 p-2 rounded-md text-center');
+                        attrItem.appendChild(createElement('p', 'text-xs text-gray-400', key));
+                        attrItem.appendChild(createElement('p', 'text-lg font-bold font-mono', value));
+                        attrGrid.appendChild(attrItem);
+                    });
+                    attrSection.appendChild(attrGrid);
+                    leftCol.appendChild(attrSection);
+                    
+                    // --- 우측 컬럼 ---
                     if (options.use_equipment) {
-                        const equipTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4 mt-6', '장비');
+                        const equipSection = createElement('div');
+                        equipSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '장비'));
                         const equipList = createElement('ul', 'space-y-2');
-                         Object.entries(data.equipment).forEach(([key, value]) => {
-                            const item = createElement('li', 'flex justify-between items-center text-sm');
-                            item.innerHTML = `<span class="capitalize font-semibold text-gray-400">${key}</span> <span class="font-mono text-gray-200">${value || '없음'}</span>`;
+                        Object.entries(data.equipment).forEach(([key, value]) => {
+                            const item = createElement('li', 'flex items-center justify-between bg-black/20 p-2 rounded-md');
+                            item.appendChild(createElement('span', 'text-sm font-semibold text-gray-400', key));
+                            item.appendChild(createElement('span', 'text-sm font-mono text-right', value || '없음'));
                             equipList.appendChild(item);
                         });
-                        panel.append(equipTitle, equipList);
+                        equipSection.appendChild(equipList);
+                        rightCol.appendChild(equipSection);
                     }
+                    
+                    mainGrid.append(leftCol, rightCol);
+                    panel.appendChild(mainGrid);
 
                     contentRendered = true;
                     break;
                 case 'inventory':
-                    const invTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4', '소지품');
+                    panel.appendChild(createPanelHeader('소지품'));
+                    const invList = createElement('ul', 'space-y-3 max-h-[80vh] overflow-y-auto');
                     data.forEach(item => {
                         const li = createElement('li', 'p-3 bg-black/30 rounded-md border border-gray-700');
                         const header = createElement('div', 'flex justify-between items-center');
-                        const nameText = item[1] === '화폐' ? item[0] : `${item[0]} (x${item[2]})`;
+                        // 화폐 타입일 경우와 아닐 경우를 분기하여 수량 표시를 더 안정적으로 처리
+                        const nameText = (item[1] === '화폐') 
+                            ? `${item[0]} (x${item[2]})`
+                            : `${item[0]} (x${item[2] || 1})`;
                         header.appendChild(createElement('span', 'font-bold', nameText));
                         header.appendChild(createElement('span', `font-semibold ${getGradeColor(item[1])}`, item[1]));
                         const desc = createElement('p', 'text-sm text-gray-400 mt-1', item[3]);
                         li.append(header, desc);
-                        list.appendChild(li);
+                        invList.appendChild(li);
                     });
-                    panel.append(invTitle, list);
+                    panel.appendChild(invList);
                     contentRendered = true;
                     break;
                 case 'skills':
-                    const skillTitle = createElement('h2', 'text-2xl font-bold text-cyan-300 border-b border-gray-600 pb-3 mb-4', '스킬');
+                    panel.appendChild(createPanelHeader('스킬'));
+                    const skillList = createElement('ul', 'space-y-3 max-h-[80vh] overflow-y-auto');
                     // CSV: [name, level, current_xp, max_xp, cost, description]
                     data.forEach(skill => {
                         const li = createElement('li', 'p-3 bg-black/30 rounded-md border border-gray-700');
@@ -137,7 +142,6 @@
                         
                         const desc = createElement('p', 'text-sm text-gray-400 mt-1', skill[5]);
                         
-                        // Skill XP Bar
                         const xpContainer = createElement('div', 'mt-2');
                         const xpPercentage = skill[3] > 0 ? (skill[2] / skill[3]) * 100 : 0;
                         const xpBarBg = createElement('div', 'w-full bg-gray-700 rounded-full h-1.5');
@@ -147,9 +151,9 @@
                         xpContainer.appendChild(xpBarBg);
 
                         li.append(header, desc, xpContainer);
-                        list.appendChild(li);
+                        skillList.appendChild(li);
                     });
-                    panel.append(skillTitle, list);
+                    panel.appendChild(skillList);
                     contentRendered = true;
                     break;
             }
@@ -302,13 +306,13 @@
         document.addEventListener('DOMContentLoaded', () => {
             try {
                 const dataSource = document.getElementById('llm-data-source');
-                const gameData = parseGameDataSafe(dataSource.textContent);
-
+                const gameData = JSON.parse(dataSource.textContent);
+                
                 initializeLayout();
                 renderHUD(gameData);
                 renderContent(gameData);
             } catch (error) {
                 console.error("오류 발생:", error);
-                document.body.innerHTML = `<div class="text-red-400 p-8">데이터 처리 중 오류가 발생했습니다: ${error.message}</div>`;
+                document.body.innerHTML = `<div class="text-red-400 p-8">데이터 처리 중 오류가 발생했습니다.</div>`;
             }
         });
