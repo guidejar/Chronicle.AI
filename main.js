@@ -1,33 +1,76 @@
-        // --- BOM 처리 및 예외 처리 강화 파서 ---
-        const parseGameDataSafe = (rawInput) => {
-            let cleanInput = rawInput;
+        // --- CSV 데이터 파서 ---
+        const parseCsvData = (csvText) => {
+            const data = {
+                genre: '',
+                description: '',
+                internal_data: { game_options: {} },
+                character_stats: {
+                    name: '', age: 0, level: 0, class: '', title: '',
+                    xp: { current: 0, max: 100 },
+                    resources: [],
+                    reputation_stats: [],
+                    attributes: {},
+                    equipment: {}
+                },
+                inventory: [],
+                skills: [],
+                information_panel: [],
+                image: ''
+            };
 
-            if (typeof rawInput === 'string') {
-                // 비표준 공백(NBSP)을 표준 공백으로 변경하고 앞뒤 공백 제거
-                cleanInput = rawInput.replace(/\u00A0/g, ' ').replace(/^\uFEFF/, '').trim();
+            if (!csvText) return data;
 
-                // 마크다운 코드 블록 처리
-                if (cleanInput.startsWith('```') && cleanInput.includes('json')) {
-                    const jsonMatch = cleanInput.match(/```(?:json|html)?\s*([\s\S]*?)```/);
-                    if (jsonMatch) cleanInput = jsonMatch[1].trim();
+            const lines = csvText.trim().split('\n').filter(line => line.trim() !== '');
+
+            for (const line of lines) {
+                const parts = line.trim().split(';');
+                const key = parts[0];
+                const values = parts.slice(1);
+
+                switch (key) {
+                    case 'gen': data.genre = values[0]; break;
+                    case 'dsc': data.description = values[0]; break;
+                    case 'trt':
+                        const traitType = values[2] === 'pos' ? 'buff' : 'debuff';
+                        data.information_panel.push([traitType, values[0], '특성', values[1]]);
+                        break;
+                    case 'opt':
+                        data.internal_data.game_options[values[0]] = (values[1] === '1');
+                        break;
+                    case 'chr':
+                        data.character_stats[values[0]] = isNaN(values[1]) ? values[1] : Number(values[1]);
+                        break;
+                    case 'xp':
+                        data.character_stats.xp = { current: Number(values[0]), max: Number(values[1]) };
+                        break;
+                    case 'res':
+                        data.character_stats.resources.push({ name: values[0], current: Number(values[1]), max: Number(values[2]), color: values[3] });
+                        break;
+                    case 'rep':
+                        if (!data.character_stats.reputation_stats) data.character_stats.reputation_stats = [];
+                        data.character_stats.reputation_stats.push({ name: values[0], value: Number(values[1]) });
+                        break;
+                    case 'atr':
+                        data.character_stats.attributes[values[0]] = Number(values[1]);
+                        break;
+                    case 'eqp':
+                        data.character_stats.equipment[values[0]] = values[1] || '';
+                        break;
+                    case 'inf':
+                        data.information_panel.push(values);
+                        break;
+                    case 'inv':
+                        data.inventory.push(values);
+                        break;
+                    case 'skl':
+                        data.skills.push(values);
+                        break;
+                    case 'img':
+                        data.image = values[0];
+                        break;
                 }
             }
-
-            try {
-                // 후행 쉼표 제거 후 파싱
-                const jsonString = cleanInput.replace(/,(\s*[\}\]])/g, '$1');
-                return JSON.parse(jsonString);
-            } catch (error) {
-                console.warn('기본 JSON 파싱 실패, HTML 파싱 시도:', error.message);
-                // HTML div에서 직접 추출 시도
-                const htmlMatch = cleanInput.match(/<div[^>]*id="llm-data-source"[^>]*>\s*([\s\S]*?)\s*<\/div>/);
-                if (htmlMatch) {
-                    let htmlContent = htmlMatch[1].trim();
-                    const jsonString = htmlContent.replace(/,(\s*[\}\]])/g, '$1');
-                    return JSON.parse(jsonString);
-                }
-                throw error; // 모든 시도 실패 시 에러 throw
-            }
+            return data;
         };
 
         const createElement = (tag, classes = '', text = '') => {
@@ -106,8 +149,11 @@
                     profileList.appendChild(createProfileItem('나이', data.age));
                     profileList.appendChild(createProfileItem('클래스', data.class));
                     profileList.appendChild(createProfileItem('칭호', data.title));
-                    profileList.appendChild(createProfileItem('명성', data.reputation));
-                    profileList.appendChild(createProfileItem('악명', data.notoriety));
+                    if (options.rep && data.reputation_stats) {
+                        data.reputation_stats.forEach(stat => {
+                            profileList.appendChild(createProfileItem(stat.name, stat.value));
+                        });
+                    }
                     profileSection.appendChild(profileList);
                     leftCol.appendChild(profileSection);
 
@@ -338,7 +384,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             try {
                 const dataSource = document.getElementById('llm-data-source');
-                const gameData = parseGameDataSafe(dataSource.textContent);
+                const gameData = parseCsvData(dataSource.textContent);
                 
                 initializeLayout();
                 renderHUD(gameData);
