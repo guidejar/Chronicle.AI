@@ -16,7 +16,7 @@ const getTypeColor = (type) => {
     return colors[type] || 'text-white';
 };
 
-export const showOverlayPanel = (type, data, options = {}) => {
+export const showOverlayPanel = (type, data) => {
     hideOverlayPanel();
 
     const contentContainer = document.getElementById('content-container');
@@ -66,14 +66,14 @@ export const showOverlayPanel = (type, data, options = {}) => {
                 return item;
             };
 
-            if (options.use_level) {
+            if (data.level) {
                 profileList.appendChild(createProfileItem('레벨', data.level));
                 profileList.appendChild(createProfileItem('경험치', `${data.xp.current} / ${data.xp.max} XP`));
             }
             profileList.appendChild(createProfileItem('나이', data.age));
             profileList.appendChild(createProfileItem('클래스', data.class));
             profileList.appendChild(createProfileItem('칭호', data.title));
-            if (options.rep && data.reputation_stats) {
+            if (data.reputation_stats && data.reputation_stats.length > 0) {
                 data.reputation_stats.forEach(stat => {
                     profileList.appendChild(createProfileItem(stat.name, stat.value));
                 });
@@ -108,7 +108,7 @@ export const showOverlayPanel = (type, data, options = {}) => {
             leftCol.appendChild(traitSection);
 
             // 우측 컬럼
-            if (options.use_equipment) {
+            if (data.equipment && Object.keys(data.equipment).length > 0) {
                 const equipSection = createElement('div');
                 equipSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '장비'));
                 const equipList = createElement('ul', 'space-y-2');

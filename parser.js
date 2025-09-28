@@ -3,7 +3,6 @@ export const parseCsvData = (csvText) => {
     const data = {
         genre: '',
         description: '',
-        internal_data: { game_options: {} },
         character_stats: {
             name: '', age: 0, level: 0, class: '', title: '',
             xp: { current: 0, max: 100 },
@@ -33,9 +32,6 @@ export const parseCsvData = (csvText) => {
             case 'dsc': data.description = values[0]; break;
             case 'trt':
                 data.character_stats.traits.push({ name: values[0], desc: values[1], type: values[2] });
-                break;
-            case 'opt':
-                data.internal_data.game_options[values[0]] = (values[1] === '1');
                 break;
             case 'chr':
                 data.character_stats[values[0]] = isNaN(values[1]) ? values[1] : Number(values[1]);

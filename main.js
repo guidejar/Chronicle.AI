@@ -35,16 +35,16 @@
         };
 
         const renderCharacterUI = (data) => {
-            const { character_stats: stats, internal_data: { game_options: options } } = data;
+            const { character_stats: stats } = data;
             const card = createElement('div', 'bg-black/30 p-4 rounded-lg border border-gray-700');
             
             const header = createElement('div', 'text-center mb-3 relative p-2 -m-2 rounded-lg cursor-pointer hover:bg-white/5 transition-colors');
             header.setAttribute('aria-label', '상세 정보 보기');
-            header.addEventListener('click', () => showOverlayPanel('character', stats, options));
+            header.addEventListener('click', () => showOverlayPanel('character', stats));
 
             const nameContainer = createElement('div', 'flex justify-center items-baseline gap-2');
             nameContainer.appendChild(createElement('h2', 'text-xl font-bold', stats.name));
-            if (options.use_level) {
+            if (stats.level) {
                 nameContainer.appendChild(createElement('span', 'text-sm font-mono text-gray-400', `Lv. ${stats.level}`));
             }
             header.appendChild(nameContainer);
