@@ -90,14 +90,17 @@ export const showOverlayPanel = (type, data) => {
             }
             const rightCol = createElement('div', 'flex flex-col gap-4 overflow-y-auto');
             const attrGrid = createElement('div', 'grid grid-cols-2 gap-2');
-            const attrMap = { 'str': '힘', 'dex': '민첩', 'int': '지성', 'wis': '지혜', 'cha': '카리스마', 'vit': '활력' };
-            Object.entries(attrMap).forEach(([key, label]) => {
-                const attrItem = createElement('div', 'bg-black/20 p-2 rounded-md text-center');
-                attrItem.append(
-                    createElement('p', 'text-sm text-gray-400', label),
-                    createElement('p', 'text-lg font-bold font-mono', data[key] || 0)
-                );
-                attrGrid.appendChild(attrItem);
+            // 숫자 스탯만 표시 (이름, 성별, 나이, 클래스, 칭호, 레벨, 배경 제외)
+            const nonStatFields = ['이름', '성별', '나이', '클래스', '칭호', '레벨', '배경', 'name', 'gender', 'age', 'class', 'title', 'level', 'background'];
+            Object.entries(data).forEach(([key, value]) => {
+                if (!nonStatFields.includes(key) && typeof value === 'number') {
+                    const attrItem = createElement('div', 'bg-black/20 p-2 rounded-md text-center');
+                    attrItem.append(
+                        createElement('p', 'text-sm text-gray-400', key),
+                        createElement('p', 'text-lg font-bold font-mono', value)
+                    );
+                    attrGrid.appendChild(attrItem);
+                }
             });
             rightCol.appendChild(attrGrid);
             if (data.equipment && Object.keys(data.equipment).length > 0) {
@@ -126,7 +129,7 @@ export const showOverlayPanel = (type, data) => {
             data.items.forEach(item => allDisplayItems.push({ ...item, isCurrency: false }));
             data.currencies.forEach(c => {
                 allDisplayItems.push({
-                    name: c.name, grade: '화폐', count: c.amount, unit: c.unit, desc: ``, isCurrency: true,
+                    name: c.name, grade: '화폐', count: c.amount, unit: c.unit, desc: c.desc || '', isCurrency: true,
                 });
             });
 
@@ -148,7 +151,7 @@ export const showOverlayPanel = (type, data) => {
                         );
                         li.appendChild(header);
 
-                        if(item.desc) {
+                        if(item.desc && item.desc.trim() !== '') {
                             const descP = createElement('p', 'text-sm text-gray-400 mt-1.5', item.desc);
                             li.appendChild(descP);
                         }

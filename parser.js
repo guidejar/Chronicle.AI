@@ -74,13 +74,22 @@ export const parseCsvData = (csvText) => {
                     case 'chr':
                         subValues.forEach((val, index) => {
                             if (chrSchema[index]) {
-                                const schemaKey = {
-                                    '이름':'name', '레벨':'level', '나이':'age',
-                                    '힘':'str', '민첩':'dex', '지성':'int',
-                                    '지혜':'wis', '카리스마':'cha', '활력':'vit',
-                                    '배경':'background', '클래스':'class', '칭호':'title', '성별':'gender'
-                                }[chrSchema[index]] || chrSchema[index].toLowerCase();
-                                charData.stats[schemaKey] = ['age', 'level', 'str', 'dex', 'int', 'wis', 'cha', 'vit'].includes(schemaKey) ? Number(val) : val;
+                                const fieldName = chrSchema[index];
+                                // 문자열 필드만 제외, 나머지는 숫자로 변환 시도
+                                const stringFields = ['이름', '성별', '클래스', '칭호', '배경', 'name', 'gender', 'class', 'title', 'background'];
+                                const parsedValue = (!stringFields.includes(fieldName) && !isNaN(val)) ? Number(val) : val;
+
+                                // 기본 필드 매핑 (한글 -> 영문)
+                                const fieldMap = {
+                                    '이름': 'name', '성별': 'gender', '나이': 'age',
+                                    '클래스': 'class', '칭호': 'title', '레벨': 'level', '배경': 'background'
+                                };
+
+                                if (fieldMap[fieldName]) {
+                                    charData.stats[fieldMap[fieldName]] = parsedValue;
+                                } else {
+                                    charData.stats[fieldName] = parsedValue;
+                                }
                             }
                         });
                         break;
@@ -104,7 +113,7 @@ export const parseCsvData = (csvText) => {
                  data.session_settings.stat_definitions.push({ name: values[0], desc: values[1] });
                  break;
             case 'trt':
-                data.character_stats.traits.push({ name: '', desc: values[0], type: values[1] });
+                data.character_stats.traits.push({ name: values[0], desc: values[1], type: values[2] });
                 break;
             case 'schema_eqp':
                 eqpSchema = values;
@@ -115,15 +124,22 @@ export const parseCsvData = (csvText) => {
             case 'chr':
                 values.forEach((val, index) => {
                     if (chrSchema[index]) {
-                        const schemaKey = {
-                            '이름': 'name', '레벨': 'level', '나이': 'age',
-                            '힘': 'str', '민첩': 'dex', '지성': 'int',
-                            '지혜': 'wis', '카리스마': 'cha', '활력': 'vit',
-                            '배경': '배경', '클래스': 'class', '칭호': 'title', '성별': '성별'
-                        }[chrSchema[index]] || chrSchema[index];
-                        data.character_stats[schemaKey] =
-                            ['age', 'level', 'str', 'dex', 'int', 'wis', 'cha', 'vit'].includes(schemaKey)
-                            ? Number(val) : val;
+                        const fieldName = chrSchema[index];
+                        // 문자열 필드만 제외, 나머지는 숫자로 변환 시도
+                        const stringFields = ['이름', '성별', '클래스', '칭호', '배경', 'name', 'gender', 'class', 'title', 'background'];
+                        const parsedValue = (!stringFields.includes(fieldName) && !isNaN(val)) ? Number(val) : val;
+
+                        // 기본 필드 매핑 (한글 -> 영문)
+                        const fieldMap = {
+                            '이름': 'name', '성별': 'gender', '나이': 'age',
+                            '클래스': 'class', '칭호': 'title', '레벨': 'level', '배경': 'background'
+                        };
+
+                        if (fieldMap[fieldName]) {
+                            data.character_stats[fieldMap[fieldName]] = parsedValue;
+                        } else {
+                            data.character_stats[fieldName] = parsedValue;
+                        }
                     }
                 });
                 break;
@@ -176,7 +192,7 @@ export const parseCsvData = (csvText) => {
                 data.character_stats.currencies.push({ name: values[0], amount: Number(values[1]), unit: values[2], desc: values[3] });
                 break;
             case 'hud':
-                data.hud = { turn: values[0], time: values[1], date: values[2], location: values[3] };
+                data.hud = { time: values[0], date: values[1], location: values[2] };
                 break;
             case 'destiny_bio':
                 // 캐릭터 선택용 데이터 (현재는 사용하지 않음)

@@ -34,10 +34,11 @@ const initializeDestinyUI = (data) => {
         const card = createElement('div', 'bg-gray-800/50 p-5 rounded-lg border border-gray-700 flex flex-col backdrop-blur-sm cursor-pointer hover:bg-gray-800/80 hover:border-cyan-400 transition-all duration-200');
 
         const stats = char.stats;
-        const statMap = { 'str': '힘', 'dex': '민첩', 'int': '지성', 'wis': '지혜', 'cha': '카리스마', 'vit': '활력' };
+        // 숫자 스탯만 필터링 (이름, 성별, 나이, 클래스, 칭호, 레벨, 배경 제외)
+        const nonStatFields = ['이름', '성별', '나이', '클래스', '칭호', '레벨', '배경', 'name', 'gender', 'age', 'class', 'title', 'level', 'background'];
 
         const topStats = Object.entries(stats)
-            .filter(([key]) => statMap[key])
+            .filter(([key, value]) => !nonStatFields.includes(key) && typeof value === 'number')
             .sort(([, a], [, b]) => b - a)
             .slice(0, 2);
 
@@ -50,7 +51,7 @@ const initializeDestinyUI = (data) => {
             <div class="grid grid-cols-2 gap-4 mt-auto">
                 ${topStats.map(([key, value]) => `
                     <div class="bg-black/20 p-3 rounded-md text-center">
-                        <p class="text-sm text-cyan-400">${statMap[key]}</p>
+                        <p class="text-sm text-cyan-400">${key}</p>
                         <p class="text-2xl font-bold font-mono">${value}</p>
                     </div>
                 `).join('')}
@@ -141,11 +142,11 @@ const renderTimeAndPlace = (hud, character_stats) => {
 
     topRow.append(
         createElement('span', 'font-semibold text-yellow-300', currencyText),
-        createElement('span', 'text-gray-400', hud.date)
+        createElement('span', 'text-gray-400', hud?.date || '')
     );
     bottomRow.append(
-        createElement('p', 'font-semibold text-gray-200 text-sm', hud.location),
-        createElement('p', 'font-mono text-gray-300 text-base', hud.time)
+        createElement('p', 'font-semibold text-gray-200 text-sm', hud?.location || '알 수 없는 장소'),
+        createElement('p', 'font-mono text-gray-300 text-base', hud?.time || '')
     );
 
     container.append(topRow, bottomRow);
@@ -228,11 +229,10 @@ const initializeHudUI = (data) => {
 
     hudContainer.appendChild(renderCharacterInfo(data.character_stats));
     hudContainer.appendChild(renderMenuButtons(data));
-    if (data.hud) {
-        hudContainer.appendChild(renderTimeAndPlace(data.hud, data.character_stats));
-    }
+    // hud가 있든 없든 항상 렌더링 (없으면 기본값 표시)
+    hudContainer.appendChild(renderTimeAndPlace(data.hud, data.character_stats));
     hudContainer.appendChild(renderInfoLog(data.information_panel));
-    
+
     renderMainContent(data);
 };
 
