@@ -7,22 +7,22 @@ const createElement = (tag, classes = '', text = '') => {
 };
 
 const getGradeColor = (grade) => {
-    const colors = { '전설': 'text-yellow-400', '화폐': 'text-yellow-400', '상급': 'text-purple-400', '중급': 'text-blue-400', '하급': 'text-gray-400' };
+    const colors = { '전설': 'text-yellow-400', '화폐': 'text-yellow-300', '상급': 'text-purple-400', '중급': 'text-blue-400', '보통': 'text-gray-400' };
     return colors[grade] || 'text-gray-400';
 };
 
 const getTypeColor = (type) => {
-    const colors = { 'buff': 'text-green-400', 'debuff': 'text-red-400' };
+    const colors = { 'pos': 'text-green-400', 'neg': 'text-red-400', 'buff': 'text-green-400', 'debuff': 'text-red-400' };
     return colors[type] || 'text-white';
 };
 
 export const showOverlayPanel = (type, data) => {
+    console.log('showOverlayPanel 호출됨:', type, data);
     hideOverlayPanel();
 
-    const contentContainer = document.getElementById('content-container');
-    if (!contentContainer) return;
+    const contentContainer = document.getElementById('content-container') || document.body;
 
-    const isModal = window.innerWidth < 1024;
+    const isModal = window.innerWidth < 1024 || contentContainer === document.body;
     const overlayClasses = isModal
         ? 'overlay-panel fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50'
         : 'overlay-panel absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-8';
@@ -30,119 +30,149 @@ export const showOverlayPanel = (type, data) => {
     const overlay = createElement('div', `${overlayClasses} opacity-0 transform scale-95`);
     overlay.id = 'active-overlay';
 
-    const panel = createElement('div', 'w-full max-w-2xl bg-gray-800 border border-gray-600 rounded-lg shadow-xl p-6');
+    const panel = createElement('div', 'w-full max-w-xl h-[90vh] bg-gray-800 border border-gray-600 rounded-lg shadow-xl p-4 flex flex-col');
 
-    const createPanelHeader = (title) => {
-        const panelHeader = createElement('div', 'flex items-center justify-between border-b border-gray-600 pb-3 mb-4');
-        panelHeader.appendChild(createElement('h2', 'text-2xl font-bold text-cyan-300', title));
+    const createPanelHeader = (title, includeFilter = false, onFilterToggle = null) => {
+        const header = createElement('div', 'flex-shrink-0 flex items-center justify-between border-b border-gray-600 pb-2 mb-3');
+        const titleWrapper = createElement('div', 'flex items-center');
+        titleWrapper.appendChild(createElement('h2', 'text-2xl font-bold text-cyan-300', title));
+
+        if (includeFilter) {
+            const filterBtn = createElement('button', 'ml-3 text-xl p-1 rounded-md hover:bg-yellow-500/20 transition-colors', '🪙');
+            filterBtn.onclick = onFilterToggle;
+            titleWrapper.appendChild(filterBtn);
+        }
 
         const closeBtn = createElement('button', 'text-gray-400 hover:text-white transition-colors');
         closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`;
-        closeBtn.setAttribute('aria-label', 'Close panel');
-        closeBtn.addEventListener('click', hideOverlayPanel);
-        panelHeader.appendChild(closeBtn);
+        closeBtn.onclick = hideOverlayPanel;
 
-        return panelHeader;
+        header.append(titleWrapper, closeBtn);
+        return header;
     };
 
     let contentRendered = false;
 
     switch (type) {
         case 'character':
-            panel.innerHTML = '';
-            panel.appendChild(createPanelHeader('캐릭터 정보'));
-
-            const mainGrid = createElement('div', 'grid grid-cols-1 md:grid-cols-5 gap-6 pt-2');
-            const leftCol = createElement('div', 'md:col-span-3 space-y-6');
-            const rightCol = createElement('div', 'md:col-span-2 space-y-6');
-
-            // 좌측 컬럼
-            const profileSection = createElement('div');
-            profileSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '프로필'));
-            const profileList = createElement('ul', 'space-y-1.5 text-sm');
+            panel.appendChild(createPanelHeader(data.name));
+            const mainGrid = createElement('div', 'grid grid-cols-2 gap-4 mt-2 flex-grow min-h-0');
+            const leftCol = createElement('div', 'flex flex-col gap-4 overflow-y-auto');
+            const profileList = createElement('ul', 'space-y-1.5 text-sm bg-black/20 p-3 rounded-md');
             const createProfileItem = (label, value) => {
-                const item = createElement('li', 'flex justify-between items-center');
-                item.innerHTML = `<span class="font-semibold text-gray-400">${label}</span> <span class="font-mono text-gray-200">${value}</span>`;
+                if (!value) return null;
+                const item = createElement('li', 'flex justify-between items-start border-b border-gray-700/50 py-1.5');
+                item.innerHTML = `<span class="font-semibold text-gray-400 flex-shrink-0 pr-2">${label}</span> <span class="text-right text-gray-200">${value}</span>`;
                 return item;
             };
-
-            if (data.level) {
-                profileList.appendChild(createProfileItem('레벨', data.level));
-                profileList.appendChild(createProfileItem('경험치', `${data.xp.current} / ${data.xp.max} XP`));
+            ['class', 'title', 'gender', 'age'].forEach(key => {
+                const label = { age: '나이', class: '클래스', title: '칭호', gender: '성별' }[key] || key;
+                const item = createProfileItem(label, data[key]);
+                if(item) profileList.appendChild(item);
+            });
+            if (data.background) {
+                const bgItem = createElement('li', 'flex flex-col pt-2');
+                bgItem.innerHTML = `<span class="font-semibold text-gray-400 mb-1">배경</span> <p class="text-sm text-gray-300 leading-relaxed">${data.background}</p>`;
+                profileList.appendChild(bgItem);
             }
-            profileList.appendChild(createProfileItem('나이', data.age));
-            profileList.appendChild(createProfileItem('클래스', data.class));
-            profileList.appendChild(createProfileItem('칭호', data.title));
-            if (data.reputation_stats && data.reputation_stats.length > 0) {
-                data.reputation_stats.forEach(stat => {
-                    profileList.appendChild(createProfileItem(stat.name, stat.value));
+            leftCol.appendChild(profileList);
+            if (data.traits && data.traits.length > 0) {
+                const traitList = createElement('ul', 'space-y-2');
+                data.traits.forEach(trait => {
+                    const item = createElement('li', 'bg-black/20 p-3 rounded-md');
+                    item.append(
+                        createElement('span', `font-bold text-base ${getTypeColor(trait.type)}`, trait.name),
+                        createElement('p', 'text-sm text-gray-400 mt-1', trait.desc)
+                    );
+                    traitList.appendChild(item);
                 });
+                leftCol.appendChild(traitList);
             }
-            profileSection.appendChild(profileList);
-            leftCol.appendChild(profileSection);
-
-            const attrSection = createElement('div');
-            attrSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '능력치'));
-            const attrGrid = createElement('div', 'grid grid-cols-3 gap-x-4 gap-y-2');
-            Object.entries(data.attributes).forEach(([key, value]) => {
+            const rightCol = createElement('div', 'flex flex-col gap-4 overflow-y-auto');
+            const attrGrid = createElement('div', 'grid grid-cols-2 gap-2');
+            const attrMap = { 'str': '힘', 'dex': '민첩', 'int': '지성', 'wis': '지혜', 'cha': '카리스마', 'vit': '활력' };
+            Object.entries(attrMap).forEach(([key, label]) => {
                 const attrItem = createElement('div', 'bg-black/20 p-2 rounded-md text-center');
-                attrItem.appendChild(createElement('p', 'text-xs text-gray-400', key));
-                attrItem.appendChild(createElement('p', 'text-lg font-bold font-mono', value));
+                attrItem.append(
+                    createElement('p', 'text-sm text-gray-400', label),
+                    createElement('p', 'text-lg font-bold font-mono', data[key] || 0)
+                );
                 attrGrid.appendChild(attrItem);
             });
-            attrSection.appendChild(attrGrid);
-            leftCol.appendChild(attrSection);
-
-            const traitSection = createElement('div');
-            traitSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '특성'));
-            const traitList = createElement('ul', 'space-y-2');
-            data.traits.forEach(trait => {
-                const item = createElement('li', 'bg-black/20 p-2 rounded-md');
-                const traitType = trait.type === 'pos' ? 'buff' : 'debuff';
-                const nameSpan = createElement('span', `font-bold ${getTypeColor(traitType)}`, trait.name);
-                const descP = createElement('p', 'text-sm text-gray-400 mt-1', trait.desc);
-                item.append(nameSpan, descP);
-                traitList.appendChild(item);
-            });
-            traitSection.appendChild(traitList);
-            leftCol.appendChild(traitSection);
-
-            // 우측 컬럼
+            rightCol.appendChild(attrGrid);
             if (data.equipment && Object.keys(data.equipment).length > 0) {
-                const equipSection = createElement('div');
-                equipSection.appendChild(createElement('h3', 'text-lg font-semibold text-cyan-400 mb-2', '장비'));
-                const equipList = createElement('ul', 'space-y-2');
+                const equipList = createElement('ul', 'space-y-1.5 text-sm bg-black/20 p-3 rounded-md');
                 Object.entries(data.equipment).forEach(([key, value]) => {
-                    const item = createElement('li', 'flex items-center justify-between bg-black/20 p-2 rounded-md');
-                    item.appendChild(createElement('span', 'text-sm font-semibold text-gray-400', key));
-                    item.appendChild(createElement('span', 'text-sm font-mono text-right', value || '없음'));
-                    equipList.appendChild(item);
+                    const item = createProfileItem(key, value);
+                    if(item) equipList.appendChild(item);
                 });
-                equipSection.appendChild(equipList);
-                rightCol.appendChild(equipSection);
+                rightCol.appendChild(equipList);
             }
-
+            if (data.reputation && data.reputation.length > 0) {
+                const repList = createElement('ul', 'space-y-1.5 text-sm bg-black/20 p-3 rounded-md');
+                data.reputation.forEach(rep => {
+                    const item = createProfileItem(rep.name, rep.value);
+                    if(item) repList.appendChild(item);
+                });
+                rightCol.appendChild(repList);
+            }
             mainGrid.append(leftCol, rightCol);
             panel.appendChild(mainGrid);
-
             contentRendered = true;
             break;
         case 'inventory':
-            panel.appendChild(createPanelHeader('소지품'));
-            const invList = createElement('ul', 'space-y-3 max-h-[80vh] overflow-y-auto');
-            data.forEach(item => {
-                const li = createElement('li', 'p-3 bg-black/30 rounded-md border border-gray-700');
-                const header = createElement('div', 'flex justify-between items-center');
-                const nameText = (item[1] === '화폐')
-                    ? `${item[0]} (x${item[2]})`
-                    : `${item[0]} (x${item[2] || 1})`;
-                header.appendChild(createElement('span', 'font-bold', nameText));
-                header.appendChild(createElement('span', `font-semibold ${getGradeColor(item[1])}`, item[1]));
-                const desc = createElement('p', 'text-sm text-gray-400 mt-1', item[3]);
-                li.append(header, desc);
-                invList.appendChild(li);
+            let showingOnlyCurrency = false;
+            const allDisplayItems = [];
+            data.items.forEach(item => allDisplayItems.push({ ...item, isCurrency: false }));
+            data.currencies.forEach(c => {
+                allDisplayItems.push({
+                    name: c.name, grade: '화폐', count: c.amount, unit: c.unit, desc: ``, isCurrency: true,
+                });
             });
-            panel.appendChild(invList);
+
+            const invListContainer = createElement('div', 'flex-grow overflow-y-auto');
+            const renderList = (itemsToRender) => {
+                invListContainer.innerHTML = '';
+                const invList = createElement('ul', 'space-y-3');
+                if (itemsToRender.length === 0) {
+                    invList.innerHTML = `<li class="text-gray-400 text-center p-4">표시할 항목이 없습니다.</li>`;
+                } else {
+                    itemsToRender.forEach(item => {
+                        const li = createElement('li', 'p-3 bg-black/30 rounded-md border border-gray-700');
+                        const header = createElement('div', 'flex justify-between items-baseline');
+
+                        const quantityText = item.isCurrency ? `(${item.count}${item.unit})` : `(${item.count})`;
+                        header.append(
+                            createElement('span', 'font-bold', `${item.name} ${quantityText}`),
+                            createElement('span', `text-sm font-semibold ${getGradeColor(item.grade)}`, item.grade)
+                        );
+                        li.appendChild(header);
+
+                        if(item.desc) {
+                            const descP = createElement('p', 'text-sm text-gray-400 mt-1.5', item.desc);
+                            li.appendChild(descP);
+                        }
+                        invList.appendChild(li);
+                    });
+                }
+                invListContainer.appendChild(invList);
+            };
+
+            const onFilterToggle = (e) => {
+                showingOnlyCurrency = !showingOnlyCurrency;
+                const btn = e.currentTarget;
+                if (showingOnlyCurrency) {
+                    renderList(allDisplayItems.filter(item => item.isCurrency));
+                    btn.classList.add('bg-yellow-500/30');
+                } else {
+                    renderList(allDisplayItems);
+                    btn.classList.remove('bg-yellow-500/30');
+                }
+            };
+
+            panel.appendChild(createPanelHeader('아이템', true, onFilterToggle));
+            panel.appendChild(invListContainer);
+            renderList(allDisplayItems);
             contentRendered = true;
             break;
         case 'skills':
@@ -151,20 +181,11 @@ export const showOverlayPanel = (type, data) => {
             data.forEach(skill => {
                 const li = createElement('li', 'p-3 bg-black/30 rounded-md border border-gray-700');
                 const header = createElement('div', 'flex justify-between items-center');
-                header.appendChild(createElement('span', 'font-bold', `${skill[0]} (Lv.${skill[1]})`));
-                header.appendChild(createElement('span', 'text-blue-400', skill[4]));
-
-                const desc = createElement('p', 'text-sm text-gray-400 mt-1', skill[5]);
-
-                const xpContainer = createElement('div', 'mt-2');
-                const xpPercentage = skill[3] > 0 ? (skill[2] / skill[3]) * 100 : 0;
-                const xpBarBg = createElement('div', 'w-full bg-gray-700 rounded-full h-1.5');
-                const xpBarFg = createElement('div', `h-1.5 rounded-full bg-purple-500`);
-                xpBarFg.style.width = `${xpPercentage}%`;
-                xpBarBg.appendChild(xpBarFg);
-                xpContainer.appendChild(xpBarBg);
-
-                li.append(header, desc, xpContainer);
+                header.append(
+                    createElement('span', 'font-bold', `${skill.name} (Lv.${skill.level})`),
+                    createElement('span', 'text-blue-400', skill.cost)
+                );
+                li.append(header, createElement('p', 'text-sm text-gray-400 mt-1', skill.desc));
                 skillList.appendChild(li);
             });
             panel.appendChild(skillList);
@@ -174,8 +195,11 @@ export const showOverlayPanel = (type, data) => {
 
     if (contentRendered) {
         overlay.appendChild(panel);
-        if (isModal) document.body.appendChild(overlay);
-        else contentContainer.appendChild(overlay);
+        if (isModal || contentContainer === document.body) {
+            document.body.appendChild(overlay);
+        } else {
+            contentContainer.appendChild(overlay);
+        }
 
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) hideOverlayPanel();
