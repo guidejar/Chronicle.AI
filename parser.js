@@ -76,7 +76,11 @@ export const parseCsvData = (csvText) => {
                 data.character_stats.xp = { current: Number(values[0]), max: Number(values[1]) };
                 break;
             case 'gauge':
-                data.character_stats.resources.push({ name: values[0], current: Number(values[1]), max: Number(values[2]), color: values[3] });
+                let color = values[3];
+                if (color && !color.startsWith('#')) {
+                    color = '#' + color;  // # 자동 추가
+                }
+                data.character_stats.resources.push({ name: values[0], current: Number(values[1]), max: Number(values[2]), color: color });
                 break;
             case 'rep':
                 if (!data.character_stats.reputation_stats) data.character_stats.reputation_stats = [];
