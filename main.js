@@ -114,7 +114,13 @@ const renderCharacterInfo = (stats) => {
 const renderMenuButtons = (data) => {
     const container = createElement('div', 'grid grid-cols-3 gap-2 flex-shrink-0');
     const characterBtn = createElement('button', 'w-full text-sm py-2 bg-gray-700/80 hover:bg-gray-600/80 rounded-md transition-colors', '캐릭터');
-    characterBtn.onclick = () => showOverlayPanel('character', data.character_stats);
+    characterBtn.onclick = () => {
+        const modalData = {
+            ...data.character_stats,
+            reputation: data.character_stats.reputation_stats || []
+        };
+        showOverlayPanel('character', modalData);
+    };
     
     const skillsBtn = createElement('button', 'w-full text-sm py-2 bg-gray-700/80 hover:bg-gray-600/80 rounded-md transition-colors', '스킬');
     skillsBtn.onclick = () => showOverlayPanel('skills', data.skills);
